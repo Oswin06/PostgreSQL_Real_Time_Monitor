@@ -5,6 +5,13 @@
 #include <memory>
 #include <mutex>
 #include <pqxx/pqxx>
+#include <QObject>
+#include <QTimer>
+#include <QDateTime>
+
+// Forward declaration
+class ConfigManager;
+struct DatabaseConfig;
 
 class DatabaseManager {
 public:
