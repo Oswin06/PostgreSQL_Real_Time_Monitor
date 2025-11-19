@@ -310,10 +310,6 @@ make debug-run    # Run with GDB debugger
 4. Test thoroughly
 5. Submit a pull request
 
-## License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-
 ## Support
 
 For issues, questions, or contributions:
