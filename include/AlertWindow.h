@@ -30,6 +30,9 @@
 #include "AlertSystem.h"
 #include "DatabaseManager.h"
 
+// Forward declaration
+class ConfigManager;
+
 class AlertWindow : public QMainWindow {
     Q_OBJECT
 
