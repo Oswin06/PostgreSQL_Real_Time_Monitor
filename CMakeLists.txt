@@ -61,6 +61,7 @@ set(SOURCES
     src/AlertSystem.cpp
     src/AlertWindow.cpp
     src/QueryEngine.cpp
+    src/ConfigManager.cpp
 )
 
 # Header files
@@ -69,6 +70,7 @@ set(HEADERS
     include/AlertSystem.h
     include/AlertWindow.h
     include/QueryEngine.h
+    include/ConfigManager.h
 )
 
 # Create executable
