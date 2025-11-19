@@ -54,10 +54,18 @@ public:
     void updateConnectionStatus(bool connected);
     void updateLastUpdateTime();
 
+    // Configuration management
+    void setConfigManager(ConfigManager* configManager);
+    ConfigManager* getConfigManager() const;
+
 public slots:
     void onNewAlertAdded(const Alert& alert);
     void onConnectionStatusChanged(bool connected);
     void onDatabaseError(const QString& error);
+    void onConfigChanged();
+    void onConfigLoaded();
+    void onMonitoringStarted();
+    void onMonitoringStopped();
 
 private slots:
     void startMonitoring();
