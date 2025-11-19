@@ -1,0 +1,51 @@
+# PostgreSQL Monitor Configuration File
+# This file contains the complete configuration for the PostgreSQL Real-Time Monitor
+# Generated automatically - modify with care
+
+[Database]
+# Database connection settings
+host=localhost
+port=5432
+database=postgres
+username=postgres
+password=
+connect_timeout=10
+sslmode=prefer
+application_name=PostgreSQL-Monitor
+use_environment_variables=false
+
+[Alerts]
+# Alert system settings
+duplicate_detection_enabled=true
+duplicate_time_window=30
+max_alerts=1000
+show_timestamps=true
+auto_scroll=true
+date_format=hh:mm:ss
+time_format=Just now;X seconds ago;X minutes ago;X hours ago;MMM dd, yyyy hh:mm:ss
+
+[Queries]
+# Query execution settings
+queries_file_path=config/queries.conf
+execution_interval=1000
+max_concurrent_queries=5
+start_monitoring_on_startup=false
+enable_query_logging=false
+
+[UI]
+# User interface settings
+window_title=PostgreSQL Monitor - Alert Dashboard
+window_size=1200x800
+window_position=100,100
+show_filter_panel=true
+show_details_panel=true
+alert_color_critical=#d32f2f
+alert_color_warning=#f57c00
+alert_color_info=#388e3c
+alert_font_family=Segoe UI, Arial, sans-serif
+alert_font_size=10
+dark_theme=false
+
+[General]
+# General application settings
+use_environment_variables=false
