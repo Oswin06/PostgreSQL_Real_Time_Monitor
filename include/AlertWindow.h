@@ -135,6 +135,7 @@ private:
     // System components
     std::unique_ptr<AlertSystem> alertSystem_;
     std::unique_ptr<DatabaseManager> databaseManager_;
+    ConfigManager* configManager_;
 
     // State
     bool isMonitoring_;
