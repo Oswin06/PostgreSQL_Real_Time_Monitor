@@ -13,19 +13,60 @@
 class ConfigManager;
 struct DatabaseConfig;
 
-class DatabaseManager {
-public:
-    struct ConnectionConfig {
-        std::string host = "localhost";
-        int port = 5432;
-        std::string database;
-        std::string username;
-        std::string password;
-        int connectTimeout = 10;
-    };
+class DatabaseManager : public QObject {
+    Q_OBJECT
 
-    explicit DatabaseManager();
+public:
+    explicit DatabaseManager(ConfigManager* configManager = nullptr, QObject *parent = nullptr);
     ~DatabaseManager();
+
+    // Connection management
+    bool connect(const DatabaseConfig& config);
+    bool connect();  // Uses config from ConfigManager
+    bool connect(const std::string& configFilePath);  // Load config from file
+    bool isConnected() const;
+    void disconnect();
+    bool reconnect();
+
+    // Query execution
+    pqxx::result executeQuery(const std::string& query);
+    pqxx::result executeQuery(const std::string& query, const std::vector<std::string>& params);
+
+    // Connection health
+    bool pingConnection();
+    std::string getLastError() const;
+
+    // Configuration
+    void setConnectionConfig(const DatabaseConfig& config);
+    DatabaseConfig getConnectionConfig() const;
+    void setConfigManager(ConfigManager* configManager);
+    ConfigManager* getConfigManager() const;
+
+    // Configuration file management
+    bool loadConfigFromFile(const std::string& configFilePath);
+    bool loadConfigFromDefaultLocation();
+    bool saveConfigToFile(const std::string& configFilePath) const;
+    bool saveConfigToDefaultLocation() const;
+    std::string getConfigFilePath() const;
+
+    // Auto-reconnection
+    void enableAutoReconnect(bool enabled, int intervalMs = 5000);
+    bool isAutoReconnectEnabled() const;
+
+    // Connection status tracking
+    QDateTime getConnectionEstablishedTime() const;
+    QDateTime getLastConnectionAttemptTime() const;
+    int getConnectionAttemptCount() const;
+
+public slots:
+    void onConfigChanged();
+    void attemptReconnect();
+
+signals:
+    void connectionStatusChanged(bool connected);
+    void connectionError(const std::string& error);
+    void reconnectionAttempt(int attemptCount);
+    void configLoaded();
 
     // Connection management
     bool connect(const ConnectionConfig& config);
