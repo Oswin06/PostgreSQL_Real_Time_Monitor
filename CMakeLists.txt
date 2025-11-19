@@ -131,7 +131,13 @@ install(TARGETS Ban_Delta_Breach_Notifier
 # Install configuration files
 install(DIRECTORY config/
     DESTINATION share/Ban_Delta_Breach_Notifier/config
-    FILES_MATCHING PATTERN "*.conf"
+    FILES_MATCHING PATTERN "*.conf" PATTERN "*.txt"
+)
+
+# Install main config file
+install(FILES config.txt
+    DESTINATION share/Ban_Delta_Breach_Notifier
+    OPTIONAL
 )
 
 # Install documentation
