@@ -68,34 +68,37 @@ signals:
     void reconnectionAttempt(int attemptCount);
     void configLoaded();
 
-    // Connection management
-    bool connect(const ConnectionConfig& config);
-    bool isConnected() const;
-    void disconnect();
-    bool reconnect();
-
-    // Query execution
-    pqxx::result executeQuery(const std::string& query);
-    pqxx::result executeQuery(const std::string& query, const std::vector<std::string>& params);
-
-    // Connection health
-    bool pingConnection();
-    std::string getLastError() const;
-
-    // Configuration
-    void setConnectionConfig(const ConnectionConfig& config);
-    ConnectionConfig getConnectionConfig() const;
-
 private:
+    // Core connection management
     std::unique_ptr<pqxx::connection> connection_;
-    ConnectionConfig config_;
+    DatabaseConfig config_;
     mutable std::mutex connectionMutex_;
     std::string lastError_;
     bool isConnected_;
 
+    // Configuration management
+    ConfigManager* configManager_;
+    std::string currentConfigFilePath_;
+
+    // Auto-reconnection
+    QTimer* reconnectTimer_;
+    bool autoReconnectEnabled_;
+    int reconnectInterval_;
+    int connectionAttemptCount_;
+
+    // Connection status tracking
+    QDateTime connectionEstablishedTime_;
+    QDateTime lastConnectionAttemptTime_;
+
+    // Core methods
     bool createConnection();
     void setError(const std::string& error);
     std::string buildConnectionString() const;
+    bool validateDatabaseConfig() const;
+    void updateConnectionStatus(bool connected);
 };
+
+// Compatibility alias for old ConnectionConfig struct
+using ConnectionConfig = DatabaseConfig;
 
 #endif // DATABASEMANAGER_H
