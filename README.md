@@ -52,7 +52,7 @@ brew install cmake qt6 postgresql libpqxx
 
 ```bash
 git clone <repository-url>
-cd Ban_Delta_Breach_Notifier
+cd PostgreSQL_Real_Time_Monitor
 mkdir build
 cd build
 cmake ..
@@ -83,7 +83,7 @@ make
 
 ```bash
 # From build directory
-./bin/Ban_Delta_Breach_Notifier
+./bin/PostgreSQL_Real_Time_Monitor
 
 # Or use the make target (if available)
 make run
